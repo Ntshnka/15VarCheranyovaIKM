@@ -1,5 +1,5 @@
 class Stack: #Стек данных
-    def __init__(self): # пустой список для хранения элементов стека
+    def __init__(self): # Пустой список для хранения элементов стека
         self.items = []
 
     def push(self, item): # Метод, добавляющий элемент в конец списка
@@ -14,7 +14,7 @@ class Stack: #Стек данных
     def is_empty(self): # Метод, проверяющий, является ли стек пустым
         return len(self.items) == 0 
 
-def calculate_postfix(expression): # вычисляет значение в соответствии с постфиксной нотацией
+def calculate_postfix(expression): # Вычисляет значение в соответствии с постфиксной нотацией
     stack = Stack()
     tokens = expression.split()
     if not expression.strip():
@@ -56,5 +56,5 @@ while True:
         result = calculate_postfix(expression)
         print("Результат вычисления выражения:",result)
         break
-    except Exception as e:
+    except Exception as e: # Обработка исключений
         print(e)
