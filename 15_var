@@ -54,7 +54,7 @@ while True:
     try:
         expression = input("Введите выражение (дробное число вводите с точкой): ")
         result = calculate_postfix(expression)
-        print(result)
+        print("Результат вычисления выражения:",result)
         break
     except Exception as e:
         print(e)
