@@ -1,0 +1,60 @@
+class Stack: #Стек данных
+    def __init__(self): # пустой список для хранения элементов стека
+        self.items = []
+
+    def push(self, item): # Метод, добавляющий элемент в конец списка
+        self.items.append(item)
+
+    def pop(self): # Метод, удаляющий последний элемент из списка
+        if not self.is_empty():
+            return self.items.pop()
+        else:
+            raise ValueError("Неверно введены данные, попробуйте ещё раз.")
+
+    def is_empty(self): # Метод, проверяющий, является ли стек пустым
+        return len(self.items) == 0 
+
+def calculate_postfix(expression): # вычисляет значение в соответствии с постфиксной нотацией
+    stack = Stack()
+    tokens = expression.split()
+    if not expression.strip():
+        raise ValueError('Вы не ввели выражение.')
+
+    for token in tokens:
+        try:
+            if token.replace('.', '', 1).isdigit(): # Помещение нецелочисленного числа в стек
+                stack.push(float(token))
+            else:
+                operand2 = stack.pop()
+                operand1 = stack.pop()
+
+                if operand2 == 0 and token == '/':
+                    raise ValueError('Невозможно деление на 0.')
+                if token == '+':
+                    result = operand1 + operand2
+                elif token == '-':
+                    result = operand1 - operand2
+                elif token == '*':
+                    result = operand1 * operand2
+                elif token == '/':
+                    result = operand1 / operand2
+                else:
+                    raise ValueError(f'Ошибка: {token}')
+
+                stack.push(result)
+
+        except IndexError:
+            raise ValueError('Error')
+    
+    if len(stack.items) > 1: # Проверка, что в стеке остался только один элемент
+        raise ValueError('Формат выражения не верен.')
+    return stack.pop()
+
+while True:
+    try:
+        expression = input("Введите выражение (дробное число вводите с точкой): ")
+        result = calculate_postfix(expression)
+        print(result)
+        break
+    except Exception as e:
+        print(e)
